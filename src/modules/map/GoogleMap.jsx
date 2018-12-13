@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
   withScriptjs,
   withGoogleMap,
@@ -10,7 +10,7 @@ import MapMarkerIcons from './MapMarkerIcons.js'
 
 import config from './config';
 const googleApiKey = config.google.apiKey;
-const googleMapURL= `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}`;
+const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}`;
 
 /**
  * These 2 High Order Components, loads Google Maps JavaScript API v3 & initializes the map with a DOM component
@@ -28,22 +28,21 @@ const GoogleMapLoader = withScriptjs(withGoogleMap((props) =>
  * @see Docs:
  *  - https://tomchentw.github.io/react-google-maps/
  */
-const GoogleMap = (props)=> {
+const GoogleMap = (props) => {
   return (
-  <Fragment>
-    <div>BeforeGoogleMapLoader</div>
-  <GoogleMapLoader
-    googleMapURL={googleMapURL}
-    loadingElement={<div className='map-loading' />}
-    containerElement={<div className='map' />}
-    mapElement={<div className='google-map' />}>
-    <ReactGoogleMap{...props}>
-      {props.children}
-    </ReactGoogleMap>
-  </GoogleMapLoader>
-    <div>AfterGoogleMapLoader</div>
-  </Fragment>
-)
+      <GoogleMapLoader
+        googleMapURL={googleMapURL}
+        loadingElement={<div className='map-loading' />}
+        containerElement={<div className='map' />}
+        mapElement={<div className='google-map' />}>
+        <ReactGoogleMap
+          {...props}
+          defaultZoom={8}
+          defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+          {props.children}
+        </ReactGoogleMap>
+      </GoogleMapLoader>
+  )
 };
 
 export {

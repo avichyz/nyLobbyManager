@@ -1,6 +1,6 @@
 
 import { getCarts, getCartById } from '../../managers/cartsServiceManager';
-import { ADD_CART, EDIT_CART, SELECT_CART, FILTER_CARTS, LOAD_CARTS, LOAD_CART_DATA } from './actionTypes';
+import { ADD_CART, EDIT_CART, SELECT_CART, FILTER_CARTS, LOAD_CARTS, LOAD_CART_DATA, REMOVE_CART } from './actionTypes';
 
 
 export function loadCartsWithData() {
@@ -30,6 +30,9 @@ export function editCart(id ,cartId, batteryPercentage, longitude, info, latitud
   return { type: EDIT_CART, id, cartId, batteryPercentage, longitude, info, latitude }
 }
 
+export function deleteCart(id) {
+  return { type: REMOVE_CART, id }
+}
 
 export function selectCart(id) {
   return { type: SELECT_CART, id }

@@ -64,6 +64,4 @@ function cartApp(state = initialState, action) {
   }
 }
 
-
-
 export default cartApp;

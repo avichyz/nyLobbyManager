@@ -6,16 +6,11 @@
     width: 100%;
 }
 
-:local .laodingImg {
-    max-height: 50%;
-    align-self: center;
-}
-
 :local .img {
     max-height: 50%;
 }
 
-:local .cartId {
+:local .title {
     font-weight: bold;
     font-size: 4vmin;
 }

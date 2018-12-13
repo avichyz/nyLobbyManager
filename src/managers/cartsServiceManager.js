@@ -17,6 +17,19 @@ export async function getCarts() {
     }))
 }
 
+
+export async function deleteCart(_id) {
+    const rawResponse = await fetch(`${baseAddress}/${_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
+
+    return rawResponse;
+}
+
 export async function getCartById(id) {
     let cartData = await fetch(`${baseAddress}/${id}`);
     cartData = await cartData.json();

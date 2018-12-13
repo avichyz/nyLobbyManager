@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ItemDisplay from './ItemDisplay';
+import { deleteCart as deleteCartRedux } from '../../../redux/actions';
+import { deleteCart } from '../../../managers/cartsServiceManager'
 import { connect } from 'react-redux'
 
 class ItemDisplayContainer extends Component {
@@ -23,6 +25,13 @@ class ItemDisplayContainer extends Component {
     loadData = (cartId) => {
         const cart = this.props.carts.find(mov=> mov.id == cartId);
         this.setState({...cart})
+    }
+
+    handleDelete = (id) =>
+    {
+        deleteCart(id).then(() => {
+            this.props.deleteCart(id);
+        })
     }
 
     componentDidMount() {
@@ -49,11 +58,15 @@ class ItemDisplayContainer extends Component {
                 latitude={latitude}
                 info={info}
                 longitude={longitude}
+                onDelete={this.handleDelete}
                 />
         )
     }
 }
 
+const mapDispatchToProps = dispatch => ({
+    deleteCart: (id) => dispatch(deleteCartRedux(id))
+})
 
 const mapStateToProps = state => ({
     carts: state.carts
@@ -61,6 +74,6 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(ItemDisplayContainer)
 
