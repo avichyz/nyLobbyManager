@@ -16,8 +16,21 @@ class Shell extends Component {
             <div className={styles.root}>
                 <AppBar position="static" color="default" className={styles.appBar}>
                     <Toolbar>
-                        <Link to='/'><Button>Home</Button></Link>
-                        <Link to='/browse'><Button>Browse</Button></Link>
+                        <Link to='/'><Button>בית</Button></Link>
+                        {/* allows tenants to set their data - current tenant + owner */}
+                        {/* <Link to='/browse'><Button>עדכון פרטים אישיים</Button></Link> */}
+                        {/* allows tenants to offer divrey torah */}
+                        {/* <Link to='/browse'><Button>הצעת דבר תורה</Button></Link> */}
+                        {/* <Link to='/browse'><Button>ניהול RSS</Button></Link> */}
+                        {/* allows managers to set announcements */}
+                        <Link to='/browse'><Button>ניהול הודעות הוועד</Button></Link>
+                        {/* allows managers to set divrey torah per saturday */}
+                        {/* <Link to='/browse'><Button>ניהול שבתות וחגים</Button></Link> */}
+                        {/* allows managers to update takalot and perhaps one day invite the achzaka
+                         company to watch and set statuses or to reply*/}
+                        {/* <Link to='/browse'><Button>ניהול תקלות בבניין</Button></Link> */}
+                        {/* allows manager to update data of tenant and lock it - per tenant, per data item*/}
+                        {/* <Link to='/browse'><Button>ניהול פרטי דיירים</Button></Link> */}
                     </Toolbar>
                 </AppBar>
                 <div className={styles.content}>

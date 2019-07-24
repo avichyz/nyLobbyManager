@@ -1,1 +1,1 @@
-cartWebManager
+announcementWebManager

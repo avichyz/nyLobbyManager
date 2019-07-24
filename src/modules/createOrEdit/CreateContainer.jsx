@@ -1,29 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { addCart } from '../../redux/actions';
-import { saveNewCart } from '../../managers/cartsServiceManager'
+import { addAnnouncement } from '../../redux/actions';
+import { saveNewAnnouncement } from '../../managers/announcementServiceManager'
 import CreateOrEdit from './CreateOrEdit';
 import styles from './createOrEdit.scss';
 import { MuiThemeProvider } from '@material-ui/core';
 
 class CreateContainer extends React.Component {
 
-    handleSaveNewCart = (cartId, batteryPercentage, latitude, longitude, info) => {
-        if (this.props.carts.find(mov => mov.cartId === cartId))
-            throw "CartId already exists!";
-
+    handleSaveNewAnnouncement = (title, content, info, isHidden) => {
         async function saveAndWaitForIt(reduxSaveFunction) {
-            const cart = await saveNewCart({ cartId, batteryPercentage, latitude, longitude, info })
-
-            reduxSaveFunction(
-                cart.cartId,
-                cart.batteryPercentage,
-                cart.latitude,
-                cart.longitude,
-                cart.info);
+            const announcement = await saveNewAnnouncement({ title, content, info, isHidden });
+            reduxSaveFunction(title, content, info, isHidden);
         }
 
-        saveAndWaitForIt(this.props.saveNewCart)
+        saveAndWaitForIt(this.props.saveNewAnnouncement)
         this.props.handleCloseDialog();
     }
 
@@ -31,7 +22,7 @@ class CreateContainer extends React.Component {
         return (
             <CreateOrEdit
                 className={styles.width100}
-                handleSave={this.handleSaveNewCart}
+                handleSave={this.handleSaveNewAnnouncement}
                 handleCloseDialog={this.props.handleCloseDialog}
             />
         );
@@ -39,13 +30,13 @@ class CreateContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    carts: state.carts
+    announcements: state.announcements
 })
 
 
 const mapDispatchToProps = dispatch => ({
-    saveNewCart: (cartId, batteryPercentage, latitude, longitude, info) =>
-        dispatch(addCart(cartId, latitude, batteryPercentage, info, longitude))
+    saveNewAnnouncement: (title, content, info) =>
+        dispatch(addAnnouncement(title, content, info))
 })
 
 export default connect(

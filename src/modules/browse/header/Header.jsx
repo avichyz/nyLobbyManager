@@ -6,22 +6,22 @@ import styles from './header.scss';
 
 class Header extends Component {
     static proptypes = {
-        cartsCount: PropTypes.number
+        announcementsCount: PropTypes.number
     }
 
     render() {
 
-        const {cartsCount} = this.props;
+        const {announcementsCount} = this.props;
 
         return (
             <div className={styles.headerContainer}>  
-                <div className={styles.cartId}>
-                    Browse our carts 
+                <div className={styles.title}>
+                    הודעות הוועד
                 </div>
                 <Button color="primary"
                     onClick={this.props.onAdd}
                     className={styles.button}>
-                    Add
+                    הוסף
                 </Button>
             </div>
         )

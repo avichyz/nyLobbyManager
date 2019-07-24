@@ -1,36 +1,37 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ItemDisplay from './ItemDisplay';
-import { deleteCart as deleteCartRedux } from '../../../redux/actions';
-import { deleteCart } from '../../../managers/cartsServiceManager'
+import { deleteAnnouncement as deleteAnnouncementRedux } from '../../../redux/actions';
+import { deleteAnnouncement } from '../../../managers/announcementServiceManager'
 import { connect } from 'react-redux'
 
 class ItemDisplayContainer extends Component {
 
     state = {
-        longitude: null,
-        info: null,
-        latitude: null
+        title: null,
+        content: null,
+        info: null
     }
 
     static proptypes = {
         id: PropTypes.number,
-        cartId: PropTypes.string,
-        batteryPercentage: PropTypes.string,
-        longitude: PropTypes.string,
-        info: PropTypes.string,
-        latitude: PropTypes.string,
+        title: PropTypes.string,
+        content: PropTypes.string,
+        info: PropTypes.string
     }
 
-    loadData = (cartId) => {
-        const cart = this.props.carts.find(mov=> mov.id == cartId);
-        this.setState({...cart})
+    loadData = (id) => {
+        const announcement = this.props.announcements.find(item=> item.id == id);
+        this.setState({ 
+            title: announcement.title, 
+            content: announcement.content, 
+            info: announcement.info
+        });
     }
 
-    handleDelete = (id) =>
-    {
-        deleteCart(id).then(() => {
-            this.props.deleteCart(id);
+    handleDelete = (id) => {
+        deleteAnnouncement(id).then(() => {
+            this.props.deleteAnnouncement(id);
         })
     }
 
@@ -41,35 +42,32 @@ class ItemDisplayContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if ((this.props.id !== prevProps.id) || (this.props.carts !== prevProps.carts))  {
+        if ((this.props.id !== prevProps.id) || (this.props.announcements !== prevProps.announcements))  {
             this.loadData(this.props.id);
         }
     }
 
     render() {
         const { id } = this.props;
-        const { cartId, batteryPercentage, info, longitude, latitude} = this.state;
+        const { title, content, info } = this.state;
         
         return (
            <ItemDisplay 
-                cartId={cartId}
                 id={id}
-                batteryPercentage={batteryPercentage}
-                latitude={latitude}
+                title={title}
                 info={info}
-                longitude={longitude}
-                onDelete={this.handleDelete}
-                />
+                content={content}
+                onDelete={this.handleDelete}/>
         )
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    deleteCart: (id) => dispatch(deleteCartRedux(id))
+    deleteAnnouncement: (id) => dispatch(deleteAnnouncementRedux(id))
 })
 
 const mapStateToProps = state => ({
-    carts: state.carts
+    announcements: state.announcements
 })
 
 export default connect(

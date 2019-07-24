@@ -25,7 +25,7 @@ class DeletePrompt extends Component {
                 <DialogTitle id="alert-dialog-title">{"Delete confirmation"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete this cart?
+                        Are you sure you want to delete this announcement?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

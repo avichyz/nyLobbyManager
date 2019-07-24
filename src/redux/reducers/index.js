@@ -1,62 +1,58 @@
-import { ADD_CART, EDIT_CART, REMOVE_CART,SELECT_CART, FILTER_CARTS, LOAD_CARTS,LOAD_CART_DATA } from '../actions/actionTypes';
+import { ADD_ANNOUNCEMENT, EDIT_ANNOUNCEMENT, REMOVE_ANNOUNCEMENT,SELECT_ANNOUNCEMENT, FILTER_ANNOUNCEMENTS, LOAD_ANNOUNCEMENTS,LOAD_ANNOUNCEMENT_DATA } from '../actions/actionTypes';
 
 let initialState = [];
 
-function cartApp(state = initialState, action) {
+function announcementApp(state = initialState, action) {
   switch (action.type) {
-    case LOAD_CARTS :
+    case LOAD_ANNOUNCEMENTS :
     return {
-      carts: action.carts
+      announcements: action.announcements
     }
 
-    case LOAD_CART_DATA: 
+    case LOAD_ANNOUNCEMENT_DATA: 
       return {
-        carts: state.carts.map(cart => (cart.id == action.cart.id) ? action.cart : cart)
+        announcements: state.announcements.map(announcement => (announcement.id == action.announcement.id) ? action.announcement : announcement)
       }
 
-    case SELECT_CART:
+    case SELECT_ANNOUNCEMENT:
       return Object.assign({}, state, {
         selectedId: action.id
       })
 
-    case FILTER_CARTS:
+    case FILTER_ANNOUNCEMENTS:
       return Object.assign({}, state, {
         searchText: action.searchText
       })
 
-    case ADD_CART:
+    case ADD_ANNOUNCEMENT:
       return Object.assign({}, state, {
-        carts: [
-          ...state.carts,
+        announcements: [
+          ...state.announcements,
           {
-            id: new Date().getUTCMilliseconds(), // getting a unique id based on a timestamp
-            cartId: action.cartId,
-            batteryPercentage: action.batteryPercentage,
-            longitude: action.longitude,
-            info: action.info,
-            latitude: action.latitude
+            // id: new Date().getUTCMilliseconds(), // getting a unique id based on a timestamp
+            title: action.title,
+            content: action.content,
+            info: action.info
           }
         ].sort(mov => mov.id)
       })
 
-    case EDIT_CART:
+    case EDIT_ANNOUNCEMENT:
       return Object.assign({}, state, {
-        carts: [
+        announcements: [
           Object.assign({}, {
             id:action.id,
-            cartId:action.cartId,
-            latitude: action.latitude,
-            batteryPercentage: action.batteryPercentage, 
-            info: action.info,
-            longitude:action.longitude
+            title:action.title,
+            content: action.content, 
+            info: action.info
           }),
-          ...state.carts.filter(cart => cart.id !== action.id)
+          ...state.announcements.filter(announcement => announcement.id !== action.id)
         ]
       })
-    case REMOVE_CART:
+    case REMOVE_ANNOUNCEMENT:
       return Object.assign({}, state, {
-        carts: [
-          ...state.carts.filter(cart => cart.id !== action.id)
+        announcements: [
+          ...state.announcements.filter(announcement => announcement.id !== action.id)
         ]
       })
     default:
@@ -64,4 +60,4 @@ function cartApp(state = initialState, action) {
   }
 }
 
-export default cartApp;
+export default announcementApp;

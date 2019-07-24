@@ -1,40 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { editCart } from '../../redux/actions';
-import { updateCart } from '../../managers/cartsServiceManager';
+import { editAnnouncement } from '../../redux/actions';
+import { updateAnnouncement } from '../../managers/announcementServiceManager';
 import CreateOrEdit from './CreateOrEdit';
 
 class EditContainer extends React.Component {
 
     state = {
         id: null,
-        cartId: null,
-        batteryPercentage: null,
-        latitude: null,
+        title: null,
+        content: null,
         info: null,
-        longitude: null
     }
 
-    loadData = (cartId) => {
-        const cart = this.props.carts.find(mov => mov.id == cartId);
-        this.setState({ ...cart })
+    loadData = (title) => {
+        const announcement = this.props.announcements.find(mov => mov.id == title);
+        this.setState({ ...announcement })
     }
 
     
-    handleSaveChanges = (cartId, batteryPercentage, latitude, longitude, info, id) => {
+    handleSaveChanges = ({title, content, info, id}) => {
         async function updateAndWaitForIt(reduxUpdateFunction) {
-            const cart = await updateCart({ cartId, batteryPercentage, latitude, longitude, info }, id)
+            const announcement = await updateAnnouncement({ title, content, info, id }, id)
 
             reduxUpdateFunction(
-                cart.cartId, 
-                cart.batteryPercentage, 
-                cart.longitude, 
-                cart.info, 
-                cart.latitude, 
+                announcement.title, 
+                announcement.content, 
+                announcement.info, 
                 id);
         }
 
-        updateAndWaitForIt(this.props.editExistedCart)
+        updateAndWaitForIt(this.props.editExistedAnnouncement)
     }
 
     componentDidMount() {
@@ -45,7 +41,7 @@ class EditContainer extends React.Component {
     render() {
         return (
             <CreateOrEdit
-                cart={this.state}
+                announcement={this.state}
                 handleSave={this.handleSaveChanges}
                 handleCloseDialog={this.props.handleCloseDialog}
             />
@@ -54,12 +50,12 @@ class EditContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    carts: state.carts
+    announcements: state.announcements
 })
 
 const mapDispatchToProps = dispatch => ({
-    editExistedCart: (cartId, batteryPercentage, longitude, info, latitude, id) =>
-        dispatch(editCart(id,cartId, batteryPercentage, longitude, info, latitude))
+    editExistedAnnouncement: (title, content,info, id) =>
+        dispatch(editAnnouncement(id,title, content, info))
 })
 
 export default connect(

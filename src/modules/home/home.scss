@@ -2,15 +2,16 @@
     height: 100%;
     width: 100%;
     margin: 10% 10% 0 10%;
+    direction: rtl;
 }
 
-:local .cartImage {
+:local .announcementImage {
     border-radius: 50% 50% 50% 50%;
     height: 100%;
     width: 50vw;
 }
 
-:local .cartId {
+:local .title {
     display: flex;
     justify-content: space-around;
     text-align: center;

@@ -1,18 +1,24 @@
 :local .root {
     width: 100%;
     height: 100%;
-    background-color: beige;
+    background-color: #a0cff1;
+    ;
     display: flex;
     flex-direction: column;
 }
 
 :local .appBar {
-    height:auto;
+    height: auto;
+    direction: rtl;
+}
+
+.MuiToolbar-gutters-38 {
+    overflow-x: auto;
 }
 
 :local .content {
     overflow-y: hidden;
-    padding: 2%;
+    padding: 0.5%;
     display: flex;
     height: 100%;
 }

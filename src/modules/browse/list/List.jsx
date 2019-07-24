@@ -6,27 +6,25 @@ import styles from './list.scss';
 
 class List extends Component {
     static propTypes = {
-        carts: PropTypes.array,
-        handleSelectCart: PropTypes.func
+        announcements: PropTypes.array,
+        handleSelectAnnouncement: PropTypes.func
     }
 
     render() {
-        const { carts, handleSelectCart } = this.props;
+        const { announcements, handleSelectAnnouncement } = this.props;
 
         return (
             <Card className={styles.card}>
                 <ul className={styles.list}>
                     {
-                        carts.map((cart, index) => 
+                        announcements.map((announcement, index) => 
                             <ListItem
-                                key={cart.id}
-                                id={cart.id}
-                                cartId={cart.cartId}
-                                batteryPercentage={cart.batteryPercentage}
-                                longitude={cart.longitude}
-                                latitude={cart.latitude}
-                                info={cart.info}
-                                handleSelectCart={handleSelectCart}/>
+                                key={announcement.id}
+                                id={announcement.id}
+                                title={announcement.title}
+                                content={announcement.content}
+                                info={announcement.info}
+                                handleSelectAnnouncement={handleSelectAnnouncement}/>
                         )
                     }
                 </ul>

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import { selectCart, loadCartsWithData } from '../../redux/actions'
-
+import { selectAnnouncement, loadAnnouncementsWithData } from '../../redux/actions'
 import Browse from './Browse';
 import CreateContainer from '../createOrEdit/CreateContainer';
 
@@ -18,25 +17,25 @@ class BrowseContainer extends Component {
         this.setState({ addDialogOpened: false });
     }
 
-    handleSelectCart = (id) => {
-        this.props.onSelectCart(id);
+    handleSelectAnnouncement = (id) => {
+        this.props.onSelectAnnouncement(id);
     }
 
     componentDidMount() {
-        this.props.loadCarts();
+        this.props.loadAnnouncements();
     }
 
     render() {
-        const { selectedId, carts } = this.props;
+        const { selectedId, announcements } = this.props;
 
         return (
             <Fragment>
                 {
                     !this.state.addDialogOpened &&
                     <Browse
-                        carts={carts}
+                        announcements={announcements}
                         selectedId={selectedId}
-                        handleSelectCart={this.handleSelectCart}
+                        handleSelectAnnouncement={this.handleSelectAnnouncement}
                         handleOpenDialog={this.handleOpen}
                         handleCloseDialog={this.handleClose} />
                 }
@@ -52,13 +51,13 @@ class BrowseContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    carts: (state.carts || []),
+    announcements: (state.announcements || []),
     selectedId: state.selectedId
 })
 
 const mapDispatchToProps = dispatch => ({
-    onSelectCart: id => dispatch(selectCart(id)),
-    loadCarts: () => dispatch(loadCartsWithData())
+    onSelectAnnouncement: id => dispatch(selectAnnouncement(id)),
+    loadAnnouncements: () => dispatch(loadAnnouncementsWithData())
 })
 
 export default connect(

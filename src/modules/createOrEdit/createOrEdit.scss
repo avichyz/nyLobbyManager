@@ -1,4 +1,5 @@
 :local .root {
+    direction: rtl;
     margin: 5% 5% 0% 5%;
 }
 
@@ -9,6 +10,7 @@
 :local .form {
     display: flex;
     flex-direction: column;
+    direction: rtl;
 }
 
 :local .cardContent {
@@ -18,6 +20,10 @@
 
 :local .textField {
     width: 200;
+
+    label {
+        right: 0;
+    }
 }
 
 :local .textBoxes {

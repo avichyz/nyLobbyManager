@@ -9,21 +9,19 @@ import styles from './browse.scss';
 
 class Browse extends Component {
     static defaultProps = {
-        carts: []
+        announcements: []
     }
 
     static propTypes = {
-        carts: PropTypes.array,
+        announcements: PropTypes.array,
         selectedId: PropTypes.string,
-        selectedcartId: PropTypes.string,
-        selectedbatteryPercentage: PropTypes.string,
-        handleSelectCart: PropTypes.func
+        handleSelectAnnouncement: PropTypes.func
     }
 
     render() {
         const {
-            carts,
-            handleSelectCart,
+            announcements,
+            handleSelectAnnouncement,
             handleOpenDialog,
             handleCloseDialog,
             selectedId } = this.props;
@@ -31,7 +29,7 @@ class Browse extends Component {
         return (
             <Card className={styles.root}>
                 <Header
-                    cartsCount={carts.length}
+                    announcementsCount={announcements.length}
                     onAdd={handleOpenDialog}
                     onClose={handleCloseDialog} />
                 <div className={styles.listAndItemDisplay}>
@@ -41,8 +39,8 @@ class Browse extends Component {
                             id={selectedId} />
                     }
                     <List
-                        carts={carts}
-                        handleSelectCart={handleSelectCart} />
+                        announcements={announcements}
+                        handleSelectAnnouncement={handleSelectAnnouncement} />
                 </div>
             </Card>
         )

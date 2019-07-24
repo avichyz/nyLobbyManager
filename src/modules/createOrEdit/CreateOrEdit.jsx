@@ -15,24 +15,26 @@ class CreateOrEdit extends React.Component {
 
     static propTypes = {
         id: PropTypes.string,
-        cartId: PropTypes.string,
-        batteryPercentage: PropTypes.string,
-        latitude: PropTypes.string,
-        longitude: PropTypes.string,
+        title: PropTypes.string,
+        content: PropTypes.string,
+        isHidden: PropTypes.bool,
         info: PropTypes.string,
         className: PropTypes.string,
         handleCloseDialog: PropTypes.func
     }
 
-    state = {
-        id: null,
-        cartId: null,
-        batteryPercentage: null,
-        latitude: null,
-        longitude: null,
-        info: null
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: null,
+            title: null,
+            content: null,
+            isHidden: false,
+            info: null
+        }
 
+    }
+    
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -41,21 +43,21 @@ class CreateOrEdit extends React.Component {
 
     handleSave = (event) => {
         event.preventDefault();
-        const { id, cartId, latitude, batteryPercentage, info, longitude } = this.state;
+        const { id, title, content, isHidden, info } = this.state;
 
-        this.props.handleSave(cartId, batteryPercentage, latitude, longitude, info, id);
+        this.props.handleSave({ title: title, content: content, info: info, isHidden: isHidden, id: id});
         this.props.handleCloseDialog();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.cart != prevProps.cart) {
-            this.setState({ ...this.props.cart });
+        if (this.props.announcement != prevProps.announcement) {
+            this.setState({ ...this.props.announcement });
         }
     }
       
 
     render() {
-        const { id, cartId, latitude, batteryPercentage, info, longitude } = this.state;
+        const { id, title, content, info, isHidden } = this.state;
         const rootClasses = classNames(styles.root, this.props.className)
 
         return (
@@ -69,59 +71,32 @@ class CreateOrEdit extends React.Component {
                         <div className={styles.textBoxes}>
                             <TextField
                                 required
-                                error={required(cartId)}
+                                error={required(title)}
                                 id="standard-required"
-                                label="cartId"
-                                value={cartId}
+                                label="כותרת"
+                                value={title || ""}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                onChange={this.handleChange('cartId')}
+                                onChange={this.handleChange('title')}
                                 className={styles.textField}
                                 margin="normal"
                             />
 
                             <TextField
-                                required
-                                error={required(latitude)}
-                                id="standard-required"
-                                label="latitude"
-                                value={latitude}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={this.handleChange('latitude')}
-                                className={styles.textField}
-                                margin="normal"
-                            />
-                            <TextField
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                                 id="standard-multiline-static"
-                                label="longitude"
-                                error={required(longitude)}
-                                value={longitude}
-                                onChange={this.handleChange('longitude')}
+                                label="תוכן"
+                                error={required(content)}
+                                value={content || ""}
+                                onChange={this.handleChange('content')}
                                 multiline
                                 rows="4"
                                 className={styles.textField}
                                 margin="normal"
                             />
-                            <TextField
-                                required
-                                error={required(batteryPercentage)}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                id="standard-required"
-                                label="batteryPercentage"
-                                value={batteryPercentage}
-                                onChange={this.handleChange('batteryPercentage')}
-                                className={styles.textField}
-                                margin="normal"
-                            />
-                          
                      
                             <TextField
                                 required
@@ -130,8 +105,8 @@ class CreateOrEdit extends React.Component {
                                     shrink: true,
                                 }}
                                 id="standard-required"
-                                label="info"
-                                value={info}
+                                label="מידע"
+                                value={info || ""}
                                 onChange={this.handleChange('info')}
                                 className={styles.textField}
                                 margin="normal"
